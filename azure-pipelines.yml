@@ -23,10 +23,9 @@ steps:
     targetType: 'inline'
     script: |
       # Write your PowerShell commands here.
-      Import-Module -Name Az.Accounts -Force
+      # Import-Module -Name Az.Accounts -Force
       Write-Host "Hello World"
-#       # Import-Module -Name Az.Resources -Force
-#       # Import-Module -Name Az.Profile -Force
-#       # Install-Module -Name Az -Scope CurrentUser
-#       
+      # Import-Module -Name Az.Resources -Force
+      # Import-Module -Name Az.Profile -Force
+      Install-Module -Name Az -Scope CurrentUser -Force
 
