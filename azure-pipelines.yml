@@ -9,7 +9,7 @@ trigger:
 pool: Default
 
 steps:
-- script: echo Hello!
+- script: echo Hello, hi!
   displayName: 'Run a one-line script'
 
 - script: |
