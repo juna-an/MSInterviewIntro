@@ -9,10 +9,16 @@ trigger:
 pool: Default
 
 steps:
-- script: echo Hello, hi!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'MSEC_Candidates_Homeworks(a8108c2b-496c-424d-8347-ecc8afb6384c)'
+    subscriptionId: 'a8108c2b-496c-424d-8347-ecc8afb6384c'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'JARMPipeline-rg'
+    location: 'westeurope'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/juna-an/MSInterviewIntro/main/azureSATemplate.json'
+    overrideParameters: '-projectName myarmpipeline'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
