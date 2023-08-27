@@ -14,5 +14,5 @@ steps:
     targetType: 'inline'
     script: |
       # Write your PowerShell commands here.
-      Install-Module -Name Az -Scope CurrentUsers
+      Install-Module -Name Az -Scope CurrentUser
       Write-Host "Hello World"
