@@ -9,7 +9,7 @@ trigger:
 pool: Default
 
 steps:
-- task: AzurePowerShell@3
+- task: AzurePowerShell@4
   inputs:
     azureSubscription: 'MSEC_Candidates_Homeworks(a8108c2b-496c-424d-8347-ecc8afb6384c)'
     ScriptType: 'FilePath'
