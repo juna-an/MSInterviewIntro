@@ -11,4 +11,8 @@ pool: Default
 steps:
 - task: PowerShell@2
   inputs:
-    filePath: 'storagedeploy.ps1'
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      
+      Write-Host "Hello World"
