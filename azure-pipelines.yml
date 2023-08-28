@@ -9,13 +9,27 @@ trigger:
 pool: Default
 
 steps:
-- task: AzurePowerShell@5
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
-    azureSubscription: 'MSEC_Candidates_Homeworks(a8108c2b-496c-424d-8347-ecc8afb6384c)'
-    ScriptType: 'InlineScript'
-    Inline: |
-      # You can write your azure powershell scripts inline here. 
-      # You can also pass predefined and custom variables to this script using arguments
-      Write-Host "Hello World"
-    azurePowerShellVersion: 'LatestVersion'
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+    subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'ja-arm-intro-task'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'azureSATemplate.json'
+    deploymentMode: 'Incremental'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+    subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'ja-arm-intro-task'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'azureVMTemplate.json'
+    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -dnsLabelPrefix mydns'
+    deploymentMode: 'Incremental'
 
