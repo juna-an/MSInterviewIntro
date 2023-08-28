@@ -67,8 +67,8 @@ steps:
       Write-Host "gabi shater after publicIP"
       # Create a remote PowerShell session
       # Credentials for the VM
-      $username = 'your-vm-username'
-      $password = ConvertTo-SecureString 'your-vm-password' -AsPlainText -Force
+      $username = 'ja-azVM'
+      $password = ConvertTo-SecureString $(adminPassword) -AsPlainText -Force
       $credential = New-Object System.Management.Automation.PSCredential($username, $password)
       
       # Create PSSession
