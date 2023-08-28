@@ -107,14 +107,39 @@ steps:
 #     AuthenticationMechanism: Default
 #     NewPsSessionOptionArguments: '-SkipCACheck -SkipCNCheck'
 
-- task: AzureFileCopy@5
+# - task: AzureFileCopy@5
+#   inputs:
+#     SourcePath: 'testScript.ps1'
+#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     Destination: 'AzureVMs'
+#     storage: 'bootdiagsltbv3ny6xzyh4'
+#     resourceGroup: 'JA-ARM-INTRO-TASK'
+#     vmsAdminUserName: 'ja-azVM'
+#     vmsAdminPassword: 'juna-azVM#!^@'
+#     TargetPath: 'C:\'
+#     enableCopyPrerequisites: true
+
+
+- task: AzureCLI@2
   inputs:
-    SourcePath: 'testScript.ps1'
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    Destination: 'AzureVMs'
-    storage: 'bootdiagsltbv3ny6xzyh4'
-    resourceGroup: 'JA-ARM-INTRO-TASK'
-    vmsAdminUserName: 'ja-azVM'
-    vmsAdminPassword: 'juna-azVM#!^@'
-    TargetPath: 'C:\'
-    enableCopyPrerequisites: true
+    scriptType: 'bash'
+    inlineScript: |
+      #!/bin/bash
+
+      # Variables
+      vmPublicIpAddress="20.160.190.152"
+      vmRdpUsername="ja-azVM"
+      vmRdpPassword="juna-azVM#!^@"
+
+      # Install xfreerdp if not already installed
+      if ! command -v xfreerdp &> /dev/null; then
+          sudo apt-get update
+          sudo apt-get install -y freerdp2-x11
+      fi
+
+      # Connect to the Windows VM using xfreerdp
+      xfreerdp /v:"$vmPublicIpAddress" /u:"$vmRdpUsername" /p:"$vmRdpPassword" /app:"cmd.exe" /bpp:24 +clipboard /cert-ignore
+
+      # Send "Hello, world!" command to the Windows VM
+      echo "echo Hello, world!" | xfreerdp /v:"$vmPublicIpAddress" /u:"$vmRdpUsername" /p:"$vmRdpPassword" /app:"cmd.exe" /bpp:24 +clipboard /cert-ignore
