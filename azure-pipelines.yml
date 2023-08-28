@@ -66,7 +66,13 @@ steps:
       $publicIP = Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name myPublicIP
       Write-Host "gabi shater after publicIP"
       # Create a remote PowerShell session
-      $session = New-PSSession -ComputerName $publicIP -Credential (Get-Credential)
+      # Credentials for the VM
+      $username = 'your-vm-username'
+      $password = ConvertTo-SecureString 'your-vm-password' -AsPlainText -Force
+      $credential = New-Object System.Management.Automation.PSCredential($username, $password)
+      
+      # Create PSSession
+      $session = New-PSSession -ComputerName $publicIP -Credential $credential
       Write-Host "gabi shater after session"
       # Copy the file to the VM
       Copy-Item -Path $localFilePath -Destination $remoteFolderPath -ToSession $session
