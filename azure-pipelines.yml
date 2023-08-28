@@ -42,56 +42,64 @@ steps:
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount3rg").Value[0]
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount4rg").Value[0]
     azurePowerShellVersion: 'LatestVersion'
-- task: AzurePowerShell@5
-  env:
-    ADMINPASSWORD: $(adminPassword)
+# - task: AzurePowerShell@5
+#   env:
+#     ADMINPASSWORD: $(adminPassword)
+#   inputs:
+#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     ScriptType: 'InlineScript'
+#     Inline: |
+#       $resourceGroupName = 'ja-arm-intro-task'
+#       $vmName = 'simple-vm'
+
+#       # Enable PowerShell Remoting
+#       $script = "Enable-PSRemoting -SkipNetworkProfileCheck -Force"
+#       Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId RunPowerShellScript -ScriptString "$script"
+
+#       # Copy Script to VM
+#       $localFilePath = 'testScript.ps1'
+#       $remoteFilePath = 'C:\testScriptOnVM.ps1'
+#       $vm = Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
+#       # Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
+
+#       # Establish a remote session to the VM
+#       Write-Host "gabi shater 111111"
+#       # Get the public IP or DNS name of the VM
+#       $publicIP = Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name myPublicIP
+#       Write-Host "gabi shater after publicIP"
+#       # Create a remote PowerShell session
+#       # Credentials for the VM
+#       Write-Host "hiiiiiiiiiiiii ${env:ADMINPASSWORD}"
+#       $username = 'ja-azVM'
+#       $password = ConvertTo-SecureString ${env:ADMINPASSWORD} -AsPlainText -Force
+#       Write-Host "juna shatra after secure pass"
+#       $credential = New-Object System.Management.Automation.PSCredential($username, $password)
+#       Write-Host "juna shatra after cred"
+#       # Create PSSession
+#       $session = New-PSSession -ComputerName $publicIP -Credential $credential
+#       Write-Host "gabi shater after session"
+#       # Copy the file to the VM
+#       Copy-Item -Path $localFilePath -Destination $remoteFolderPath -ToSession $session
+#       Write-Host "gabi shater after copy-Item"
+#       # Close the remote session
+#       Remove-PSSession $session
+#       Write-Host "gabi shater after Remove-PSSession"
+#       Write-Host "gabi shater all the time"
+
+#       # Run Script on VM
+#       $remoteScriptPath = $remoteFilePath
+#       $scriptBlock = {
+#         param($scriptPath)
+#         Invoke-Expression -Command $scriptPath
+#       }
+#       Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId 'RunPowerShellScript' -ScriptPath $remoteScriptPath -Parameter @{ scriptPath = $remoteScriptPath } -VM $vm
+#     azurePowerShellVersion: 'LatestVersion'
+#   displayName: 'Deploy VM, Copy Script, and Run'
+
+- task: PowerShellOnTargetMachines@3
   inputs:
-    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    ScriptType: 'InlineScript'
-    Inline: |
-      $resourceGroupName = 'ja-arm-intro-task'
-      $vmName = 'simple-vm'
-
-      # Enable PowerShell Remoting
-      $script = "Enable-PSRemoting -Force"
-      Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId RunPowerShellScript -ScriptString "$script"
-
-      # Copy Script to VM
-      $localFilePath = 'testScript.ps1'
-      $remoteFilePath = 'C:\testScriptOnVM.ps1'
-      $vm = Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
-      # Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
-
-      # Establish a remote session to the VM
-      Write-Host "gabi shater 111111"
-      # Get the public IP or DNS name of the VM
-      $publicIP = Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name myPublicIP
-      Write-Host "gabi shater after publicIP"
-      # Create a remote PowerShell session
-      # Credentials for the VM
-      Write-Host "hiiiiiiiiiiiii ${env:ADMINPASSWORD}"
-      $username = 'ja-azVM'
-      $password = ConvertTo-SecureString ${env:ADMINPASSWORD} -AsPlainText -Force
-      $credential = New-Object System.Management.Automation.PSCredential($username, $password)
-      
-      # Create PSSession
-      $session = New-PSSession -ComputerName $publicIP -Credential $credential
-      Write-Host "gabi shater after session"
-      # Copy the file to the VM
-      Copy-Item -Path $localFilePath -Destination $remoteFolderPath -ToSession $session
-      Write-Host "gabi shater after copy-Item"
-      # Close the remote session
-      Remove-PSSession $session
-      Write-Host "gabi shater after Remove-PSSession"
-      Write-Host "gabi shater all the time"
-
-      # Run Script on VM
-      $remoteScriptPath = $remoteFilePath
-      $scriptBlock = {
-        param($scriptPath)
-        Invoke-Expression -Command $scriptPath
-      }
-      Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId 'RunPowerShellScript' -ScriptPath $remoteScriptPath -Parameter @{ scriptPath = $remoteScriptPath } -VM $vm
-    azurePowerShellVersion: 'LatestVersion'
-  displayName: 'Deploy VM, Copy Script, and Run'
-
+    Machines: '20.160.190.152'
+    UserName: 'ja-azVM'
+    UserPassword: '$(adminPassword)'
+    InlineScript: 'Write-Output "Hello World"'
+    CommunicationProtocol: 'Http'
