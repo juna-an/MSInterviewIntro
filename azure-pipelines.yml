@@ -9,23 +9,13 @@ trigger:
 pool: Default
 
 steps:
-
-# - task: AzurePowerShell@5
-#   inputs:
-#     azureSubscription: 'MSEC_Candidates_Homeworks(a8108c2b-496c-424d-8347-ecc8afb6384c)'
-#     ScriptType: 'InlineScript'
-#     Inline: |
-#       # You can write your azure powershell scripts inline here. 
-#       # You can also pass predefined and custom variables to this script using arguments
-#       # 
-- task: PowerShell@2
+- task: AzurePowerShell@5
   inputs:
-    targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
-      # Import-Module -Name Az.Accounts -Force
+    azureSubscription: 'MSEC_Candidates_Homeworks(a8108c2b-496c-424d-8347-ecc8afb6384c)'
+    ScriptType: 'InlineScript'
+    Inline: |
+      # You can write your azure powershell scripts inline here. 
+      # You can also pass predefined and custom variables to this script using arguments
       Write-Host "Hello World"
-      # Import-Module -Name Az.Resources -Force
-      # Import-Module -Name Az.Profile -Force
-      Install-Module -Name Az -Scope CurrentUser -Force
+    azurePowerShellVersion: 'LatestVersion'
 
