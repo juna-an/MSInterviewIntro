@@ -42,3 +42,29 @@ steps:
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount3rg").Value[0]
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount4rg").Value[0]
     azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+    ScriptType: 'InlineScript'
+    Inline: |
+      $resourceGroupName = 'ja-arm-intro-task'
+      $vmName = 'simple-vm'
+
+      # Enable PowerShell Remoting
+      Enable-AzVMPSRemoting -ResourceGroupName $resourceGroupName -Name $vmName -Force
+
+      # Copy Script to VM
+      $localFilePath = 'testScript.ps1'
+      $remoteFilePath = 'C:\testScriptOnVM.ps1'
+      $vm = Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
+      Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
+
+      # Run Script on VM
+      $remoteScriptPath = $remoteFilePath
+      $scriptBlock = {
+        param($scriptPath)
+        Invoke-Expression -Command $scriptPath
+      }
+      Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId 'RunPowerShellScript' -ScriptPath $remoteScriptPath -Parameter @{ scriptPath = $remoteScriptPath } -VM $vm
+  displayName: 'Deploy VM, Copy Script, and Run'
+
