@@ -31,6 +31,6 @@ steps:
     location: 'West Europe'
     templateLocation: 'Linked artifact'
     csmFile: 'azureVMTemplate.json'
-    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -dnsLabelPrefix mydns'
+    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword)'
     deploymentMode: 'Incremental'
 
