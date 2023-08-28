@@ -9,28 +9,34 @@ trigger:
 pool: Default
 
 steps:
-- task: AzureResourceManagerTemplateDeployment@3
+# - task: AzureResourceManagerTemplateDeployment@3
+#   inputs:
+#     deploymentScope: 'Resource Group'
+#     azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
+#     action: 'Create Or Update Resource Group'
+#     resourceGroupName: 'ja-arm-intro-task'
+#     location: 'West Europe'
+#     templateLocation: 'Linked artifact'
+#     csmFile: 'azureSATemplate.json'
+#     overrideParameters: '-startIndex 3'
+#     deploymentMode: 'Incremental'
+# - task: AzureResourceManagerTemplateDeployment@3
+#   inputs:
+#     deploymentScope: 'Resource Group'
+#     azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
+#     action: 'Create Or Update Resource Group'
+#     resourceGroupName: 'ja-arm-intro-task'
+#     location: 'West Europe'
+#     templateLocation: 'Linked artifact'
+#     csmFile: 'azureVMTemplate.json'
+#     overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword)'
+#     deploymentMode: 'Incremental'
+- task: AzurePowerShell@5
   inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'ja-arm-intro-task'
-    location: 'West Europe'
-    templateLocation: 'Linked artifact'
-    csmFile: 'azureSATemplate.json'
-    overrideParameters: '-startIndex 3'
-    deploymentMode: 'Incremental'
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'ja-arm-intro-task'
-    location: 'West Europe'
-    templateLocation: 'Linked artifact'
-    csmFile: 'azureVMTemplate.json'
-    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword)'
-    deploymentMode: 'Incremental'
-
+    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+    ScriptType: 'InlineScript'
+    Inline: |
+      Get-AzContext
+    azurePowerShellVersion: 'LatestVersion'
