@@ -61,15 +61,20 @@ steps:
       # Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
 
       # Establish a remote session to the VM
-      Write-Host "gabi shater1"
+      Write-Host "gabi shater 111111"
       # Get the public IP or DNS name of the VM
       $publicIP = Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name myPublicIP
+      Write-Host "gabi shater after publicIP"
       # Create a remote PowerShell session
       $session = New-PSSession -ComputerName $publicIP -Credential (Get-Credential)
+      Write-Host "gabi shater after session"
       # Copy the file to the VM
       Copy-Item -Path $localFilePath -Destination $remoteFolderPath -ToSession $session
+      Write-Host "gabi shater after copy-Item"
       # Close the remote session
       Remove-PSSession $session
+      Write-Host "gabi shater after Remove-PSSession"
+      Write-Host "gabi shater all the time"
 
       # Run Script on VM
       $remoteScriptPath = $remoteFilePath
