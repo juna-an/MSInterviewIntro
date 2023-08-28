@@ -43,6 +43,8 @@ steps:
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount4rg").Value[0]
     azurePowerShellVersion: 'LatestVersion'
 - task: AzurePowerShell@5
+  env:
+    ADMINPASSWORD: $(adminPassword)
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
     ScriptType: 'InlineScript'
