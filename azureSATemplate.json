@@ -19,6 +19,10 @@
         "description": "Storage Account type"
       }
     },
+    "startIndex": {
+      "type": "int",
+      "defaultValue": 1
+    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -31,7 +35,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2022-09-01",
-      "name": "[format('storageaccount{0}rg', copyIndex(1))]",
+      "name": "[format('storageaccount{0}rg', copyIndex(parameters('startIndex')))]",
       "location": "[parameters('location')]",
       "sku": {
         "name": "[parameters('storageAccountType')]"
