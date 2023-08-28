@@ -19,6 +19,7 @@ steps:
     location: 'West Europe'
     templateLocation: 'Linked artifact'
     csmFile: 'azureSATemplate.json'
+    overrideParameters: '-startIndex 3'
     deploymentMode: 'Incremental'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
