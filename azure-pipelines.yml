@@ -125,21 +125,19 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      #!/bin/bash
-
       # Variables
       vmPublicIpAddress="20.160.190.152"
       vmRdpUsername="ja-azVM"
       vmRdpPassword="juna-azVM#!^@"
-
+      
       # Install xfreerdp if not already installed
       if ! command -v xfreerdp &> /dev/null; then
           sudo apt-get update
           sudo apt-get install -y freerdp2-x11
       fi
-
+      
       # Connect to the Windows VM using xfreerdp
       xfreerdp /v:"$vmPublicIpAddress" /u:"$vmRdpUsername" /p:"$vmRdpPassword" /app:"cmd.exe" /bpp:24 +clipboard /cert-ignore
-
+      
       # Send "Hello, world!" command to the Windows VM
       echo "echo Hello, world!" | xfreerdp /v:"$vmPublicIpAddress" /u:"$vmRdpUsername" /p:"$vmRdpPassword" /app:"cmd.exe" /bpp:24 +clipboard /cert-ignore
