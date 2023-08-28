@@ -61,7 +61,11 @@ steps:
       # Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
 
       # Establish a remote session to the VM
-      $session = New-PSSession -ResourceGroupName $resourceGroupName -VMName $vmName -Name 'MySession'
+      Write-Host "gabi shater1"
+      # Get the public IP or DNS name of the VM
+      $publicIP = (Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name $vmName).IpAddress
+      # Create a remote PowerShell session
+      $session = New-PSSession -ComputerName $publicIP -Credential (Get-Credential)
       # Copy the file to the VM
       Copy-Item -Path $localFilePath -Destination $remoteFolderPath -ToSession $session
       # Close the remote session
