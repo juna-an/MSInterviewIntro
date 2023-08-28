@@ -52,7 +52,7 @@ steps:
 
       # Enable PowerShell Remoting
       $script = "Enable-PSRemoting -Force"
-      Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId RunPowerShellScript -ScriptPath $null -ScriptContent $script
+      Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId RunPowerShellScript -ScriptString "$script"
 
       # Copy Script to VM
       $localFilePath = 'testScript.ps1'
