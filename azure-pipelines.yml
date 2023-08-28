@@ -39,4 +39,6 @@ steps:
     ScriptType: 'InlineScript'
     Inline: |
       Get-AzContext
+      (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount3rg").Value[0]
+      (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount4rg").Value[0]
     azurePowerShellVersion: 'LatestVersion'
