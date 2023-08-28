@@ -68,7 +68,7 @@ steps:
       # Create a remote PowerShell session
       # Credentials for the VM
       $username = 'ja-azVM'
-      $password = ConvertTo-SecureString $(adminPassword) -AsPlainText -Force
+      $password = ConvertTo-SecureString ${env:ADMINPASSWORD} -AsPlainText -Force
       $credential = New-Object System.Management.Automation.PSCredential($username, $password)
       
       # Create PSSession
