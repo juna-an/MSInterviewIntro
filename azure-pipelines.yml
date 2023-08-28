@@ -58,7 +58,14 @@ steps:
       $localFilePath = 'testScript.ps1'
       $remoteFilePath = 'C:\testScriptOnVM.ps1'
       $vm = Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
-      Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
+      # Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
+
+      # Establish a remote session to the VM
+      $session = New-PSSession -ResourceGroupName $resourceGroupName -VMName $vmName -Name 'MySession'
+      # Copy the file to the VM
+      Copy-Item -Path $localFilePath -Destination $remoteFolderPath -ToSession $session
+      # Close the remote session
+      Remove-PSSession $session
 
       # Run Script on VM
       $remoteScriptPath = $remoteFilePath
