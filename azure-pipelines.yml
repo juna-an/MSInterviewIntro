@@ -41,7 +41,7 @@ steps:
       Get-AzContext
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount3rg").Value[0]
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount4rg").Value[0]
-      Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
+      Get-AzVM -ResourceGroupName "ja-arm-intro-task" -Name "simple-vm"
     azurePowerShellVersion: 'LatestVersion'
 # - task: AzurePowerShell@5
 #   env:
