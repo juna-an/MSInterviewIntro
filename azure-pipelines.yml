@@ -41,6 +41,7 @@ steps:
       Get-AzContext
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount3rg").Value[0]
       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount4rg").Value[0]
+      Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
     azurePowerShellVersion: 'LatestVersion'
 # - task: AzurePowerShell@5
 #   env:
@@ -96,12 +97,12 @@ steps:
 #     azurePowerShellVersion: 'LatestVersion'
 #   displayName: 'Deploy VM, Copy Script, and Run'
 
-- task: PowerShellOnTargetMachines@3
-  inputs:
-    Machines: '20.160.190.152'
-    UserName: 'ja-azVM'
-    UserPassword: '$(adminPassword)'
-    InlineScript: 'Write-Output "Hello World"'
-    CommunicationProtocol: 'Http'
-    AuthenticationMechanism: Default
-    NewPsSessionOptionArguments: '-SkipCACheck -SkipCNCheck'
+# - task: PowerShellOnTargetMachines@3
+#   inputs:
+#     Machines: '20.160.190.152'
+#     UserName: 'ja-azVM'
+#     UserPassword: '$(adminPassword)'
+#     InlineScript: 'Write-Output "Hello World"'
+#     CommunicationProtocol: 'Http'
+#     AuthenticationMechanism: Default
+#     NewPsSessionOptionArguments: '-SkipCACheck -SkipCNCheck'
