@@ -21,7 +21,7 @@
     },
     "startIndex": {
       "type": "int",
-      "defaultValue": 2
+      "defaultValue":   1
     },
     "location": {
       "type": "string",
