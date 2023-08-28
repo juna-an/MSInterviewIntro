@@ -106,3 +106,15 @@ steps:
 #     CommunicationProtocol: 'Http'
 #     AuthenticationMechanism: Default
 #     NewPsSessionOptionArguments: '-SkipCACheck -SkipCNCheck'
+
+- task: AzureFileCopy@5
+  inputs:
+    SourcePath: 'testScript.ps1'
+    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+    Destination: 'AzureVMs'
+    storage: 'bootdiagsltbv3ny6xzyh4'
+    resourceGroup: 'JA-ARM-INTRO-TASK'
+    vmsAdminUserName: 'ja-azVM'
+    vmsAdminPassword: 'juna-azVM#!^@'
+    TargetPath: 'C:\'
+    enableCopyPrerequisites: true
