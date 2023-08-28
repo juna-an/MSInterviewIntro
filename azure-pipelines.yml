@@ -63,7 +63,7 @@ steps:
       # Establish a remote session to the VM
       Write-Host "gabi shater1"
       # Get the public IP or DNS name of the VM
-      $publicIP = (Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name $vmName).IpAddress
+      $publicIP = Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name myPublicIP
       # Create a remote PowerShell session
       $session = New-PSSession -ComputerName $publicIP -Credential (Get-Credential)
       # Copy the file to the VM
