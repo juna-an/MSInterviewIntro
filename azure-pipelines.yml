@@ -122,22 +122,27 @@ steps:
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    scriptType: 'bash'
+    scriptType: ps
     scriptLocation: 'inlineScript'
     inlineScript: |
       # Variables
-      vmPublicIpAddress="20.160.190.152"
-      vmRdpUsername="ja-azVM"
-      vmRdpPassword="juna-azVM#!^@"
-      
-      # Install xfreerdp if not already installed
-      if ! command -v xfreerdp &> /dev/null; then
-          sudo apt-get update
-          sudo apt-get install -y freerdp2-x11
-      fi
-      
-      # Connect to the Windows VM using xfreerdp
-      xfreerdp /v:"$vmPublicIpAddress" /u:"$vmRdpUsername" /p:"$vmRdpPassword" /app:"cmd.exe" /bpp:24 +clipboard /cert-ignore
-      
-      # Send "Hello, world!" command to the Windows VM
-      echo "echo Hello, world!" | xfreerdp /v:"$vmPublicIpAddress" /u:"$vmRdpUsername" /p:"$vmRdpPassword" /app:"cmd.exe" /bpp:24 +clipboard /cert-ignore
+      $vmPublicIpAddress = "20.160.190.152"
+      $vmRdpUsername = "ja-azVM"
+      $vmRdpPassword = "juna-azVM#!^@"
+
+      # RDP connection parameters
+      $rdpParams = @{
+          ComputerName = $vmPublicIpAddress
+          Credential = (Get-Credential -UserName $vmRdpUsername -Password $vmRdpPassword)
+          Authentication = "CredSSP"
+      }
+
+      # Establish RDP connection
+      $rdpSession = New-PSSession -ComputerName $vmPublicIpAddress -Credential $rdpParams.Credential -Authentication CredSSP
+      Invoke-Command -Session $rdpSession -ScriptBlock {
+          # Send "Hello, world!" command to the remote Windows VM
+          Invoke-Expression "cmd.exe /C echo Hello, world!"
+      }
+
+      # Clean up RDP session
+      Remove-PSSession $rdpSession
