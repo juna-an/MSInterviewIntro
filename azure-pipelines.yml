@@ -21,18 +21,18 @@ steps:
 #     csmFile: 'azureSATemplate.json'
 #     overrideParameters: '-startIndex 3'
 #     deploymentMode: 'Incremental'
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'ja-arm-intro-task'
-    location: 'West Europe'
-    templateLocation: 'Linked artifact'
-    csmFile: 'azureVMTemplate.json'
-    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
-    deploymentMode: 'Incremental'
+# - task: AzureResourceManagerTemplateDeployment@3
+#   inputs:
+#     deploymentScope: 'Resource Group'
+#     azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
+#     action: 'Create Or Update Resource Group'
+#     resourceGroupName: 'ja-arm-intro-task'
+#     location: 'West Europe'
+#     templateLocation: 'Linked artifact'
+#     csmFile: 'azureVMTemplate.json'
+#     overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
+#     deploymentMode: 'Incremental'
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
@@ -96,10 +96,10 @@ steps:
 #     azurePowerShellVersion: 'LatestVersion'
 #   displayName: 'Deploy VM, Copy Script, and Run'
 
-# - task: PowerShellOnTargetMachines@3
-#   inputs:
-#     Machines: '20.160.190.152'
-#     UserName: 'ja-azVM'
-#     UserPassword: '$(adminPassword)'
-#     InlineScript: 'Write-Output "Hello World"'
-#     CommunicationProtocol: 'Http'
+- task: PowerShellOnTargetMachines@3
+  inputs:
+    Machines: '20.160.190.152'
+    UserName: 'ja-azVM'
+    UserPassword: '$(adminPassword)'
+    InlineScript: 'Write-Output "Hello World"'
+    CommunicationProtocol: 'Http'
