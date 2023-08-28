@@ -103,3 +103,5 @@ steps:
     UserPassword: '$(adminPassword)'
     InlineScript: 'Write-Output "Hello World"'
     CommunicationProtocol: 'Http'
+    AuthenticationMechanism: Default
+    NewPsSessionOptionArguments: '-SkipCACheck -SkipCNCheck'
