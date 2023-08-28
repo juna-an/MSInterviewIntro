@@ -153,4 +153,5 @@ steps:
     ScriptType: InlineScript
     Inline: |
         Start-AzVm -Name simple-vm -ResourceGroupName ja-arm-intro-task
+        start-AzureRmVM -ResourceGroupName ja-arm-intro-task -Name simple-vm
     azurePowerShellVersion: LatestVersion
