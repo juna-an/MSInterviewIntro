@@ -119,30 +119,38 @@ steps:
 #     TargetPath: 'C:\'
 #     enableCopyPrerequisites: true
 
-- task: AzureCLI@2
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     scriptType: ps
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       # Variables
+#       $vmPublicIpAddress = "20.160.190.152"
+#       $vmRdpUsername = "ja-azVM"
+#       $vmRdpPassword = "juna-azVM#!^@"
+
+#       # RDP connection parameters
+#       $rdpParams = @{
+#           ComputerName = $vmPublicIpAddress
+#           Credential = (Get-Credential -UserName $vmRdpUsername -Password $vmRdpPassword)
+#           Authentication = "CredSSP"
+#       }
+
+#       # Establish RDP connection
+#       $rdpSession = New-PSSession -ComputerName $vmPublicIpAddress -Credential $rdpParams.Credential -Authentication CredSSP
+#       Invoke-Command -Session $rdpSession -ScriptBlock {
+#           # Send "Hello, world!" command to the remote Windows VM
+#           Invoke-Expression "cmd.exe /C echo Hello, world!"
+#       }
+
+#       # Clean up RDP session
+#       Remove-PSSession $rdpSession
+
+- task: AzurePowerShell@3
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    scriptType: ps
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      # Variables
-      $vmPublicIpAddress = "20.160.190.152"
-      $vmRdpUsername = "ja-azVM"
-      $vmRdpPassword = "juna-azVM#!^@"
-
-      # RDP connection parameters
-      $rdpParams = @{
-          ComputerName = $vmPublicIpAddress
-          Credential = (Get-Credential -UserName $vmRdpUsername -Password $vmRdpPassword)
-          Authentication = "CredSSP"
-      }
-
-      # Establish RDP connection
-      $rdpSession = New-PSSession -ComputerName $vmPublicIpAddress -Credential $rdpParams.Credential -Authentication CredSSP
-      Invoke-Command -Session $rdpSession -ScriptBlock {
-          # Send "Hello, world!" command to the remote Windows VM
-          Invoke-Expression "cmd.exe /C echo Hello, world!"
-      }
-
-      # Clean up RDP session
-      Remove-PSSession $rdpSession
+    ScriptType: InlineScript
+    Inline: |
+        Start-AzVm -Name simple-vm -ResourceGroupName ja-arm-intro-task
+    azurePowerShellVersion: LatestVersion
