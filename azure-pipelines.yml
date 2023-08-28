@@ -66,5 +66,6 @@ steps:
         Invoke-Expression -Command $scriptPath
       }
       Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId 'RunPowerShellScript' -ScriptPath $remoteScriptPath -Parameter @{ scriptPath = $remoteScriptPath } -VM $vm
+    azurePowerShellVersion: 'LatestVersion'
   displayName: 'Deploy VM, Copy Script, and Run'
 
