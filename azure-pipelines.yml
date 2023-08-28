@@ -31,7 +31,7 @@ steps:
     location: 'West Europe'
     templateLocation: 'Linked artifact'
     csmFile: 'azureVMTemplate.json'
-    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard'
+    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
     deploymentMode: 'Incremental'
 - task: AzurePowerShell@5
   inputs:
