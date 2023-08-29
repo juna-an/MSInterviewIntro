@@ -35,6 +35,19 @@ steps:
     overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
     deploymentMode: 'Incremental'
   displayName: 'Server (VM) deployment'
+# - task: AzurePowerShell@5
+#   inputs:
+#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     ScriptType: 'InlineScript'
+#     Inline: |
+#       # Connecting to the VM
+#       Get-AzVM -ResourceGroupName "ja-arm-intro-task" -Name "simple-vm"
+#       $result = Invoke-AzVMRunCommand -ResourceGroupName 'ja-arm-intro-task' `
+#         -Name 'simple-vm' `
+#         -CommandId 'RunPowerShellScript' `
+#         -ScriptPath 'moveScript.ps1'
+#     azurePowerShellVersion: 'LatestVersion'
+#   displayName: 'Invoking VM and run script on it'
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
