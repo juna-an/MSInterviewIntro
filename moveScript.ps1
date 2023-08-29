@@ -3,21 +3,50 @@ $sourceStorageAccount = "storageaccount3rg"
 $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
 $destStorageAccount = "storageaccount4rg"
 $destStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
+
+###########################################################################
+##################### Creating or updating containers #####################
+# Creating containers of both storage accounts
 $srcContext = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
 $destContext = New-AzStorageContext -StorageAccountName $destStorageAccount -StorageAccountKey $destStorageKey
 $srcContainerName = "src-container-a"
 $destContainerName = "dest-container-b"
 
-# Local variables
-$numOfBlobs = 3
+# Check if the container exists in the source storage account
+$containerExists = Get-AzStorageContainer -Name $srcContainerName -Context $context -ErrorAction SilentlyContinue
+if (-not $containerExists) {
+    # Create the container if it doesn't exist
+    New-AzStorageContainer -Name $srcContainerName -Context $context
+    Write-Host "Container '$srcContainerName' created."
+}
 
+# Check if the container exists in the destination storage account
+$destinationContainerExists = Get-AzStorageContainer -Name $destContainerName -Context $destContext -ErrorAction SilentlyContinue
+if (-not $destinationContainerExists) {
+    # Create the container if it doesn't exist
+    New-AzStorageContainer -Name $destContainerName -Context $destContext
+    Write-Host "Container '$destContainerName' created."
+}
+################## End of Creating or updating containers #################
+###########################################################################
+
+
+###########################################################################
+########################## Creating a dummy file ##########################
 # Create a dummy file and copy it to the disired number of blobs in storage account a
 # and then copying it to the storage account b
 # Specify the file path
 $filePath = "file.txt"
 # Write the string to the file
-"hello world454637" | Out-File -FilePath $filePath
+"hello world! Do not worry be happy YOLO" | Out-File -FilePath $filePath
+###################### End of Creating a dummy file #######################
+###########################################################################
 
+
+###########################################################################
+######################## Creating $numOfBlobs blobs #######################
+# Local variables
+$numOfBlobs = 100
 # Create $numOfBlobs blobs in source storage account
 Write-Host "**************************************************************"
 Write-Host "******************** Statr creating blobs ********************"
@@ -41,7 +70,12 @@ Write-Host ""
 Write-Host "****************** Finished creating blobs! ******************"
 Write-Host "**************************************************************"
 Write-Host ""
+##################### End of Creating $numOfBlobs blobs ###################
+###########################################################################
 
+
+###########################################################################
+######################## Copying $numOfBlobs blobs ########################
 # Copy blobs from source storage account to destination storage account
 Write-Host "**************************************************************"
 Write-Host "********************* Statr copying blobs ********************"
@@ -72,7 +106,12 @@ Write-Host ""
 Write-Host "******************* Finished copying blobs! ******************"
 Write-Host "**************************************************************"
 Write-Host ""
+##################### End of Copying $numOfBlobs blobs ####################
+###########################################################################
 
+
+###########################################################################
+#################### Deleting $numOfBlobs blobs from src ##################
 Write-Host "**************************************************************"
 Write-Host "**************** Statr deleting blobs from SA A **************"
 Write-Host -NoNewline "Deleting all blobs in source storage account!"
@@ -84,7 +123,11 @@ for ($i = 1; $i -le $numOfBlobs; $i++) {
 Write-Host ""
 Write-Host "*************** Finished deleting blobs from SA A ************"
 Write-Host "**************************************************************"
+################# End of Deleting $numOfBlobs blobs from src ##############
+###########################################################################
 
+########################## Debuging Helpers section #######################
+###########################################################################
 # # Delete a container recursivly
 # # List blobs in the container
 # $blobs = Get-AzStorageBlob -Context $srcContext -Container $srcContainerName
