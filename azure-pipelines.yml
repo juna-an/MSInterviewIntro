@@ -165,6 +165,7 @@ steps:
       Write-Host "scource Storage Key: $sourceStorageKey"
       $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
       Write-Host "context: $context"
+      New-AzStorageContainer -Name saContainerA -Context $context
       Get-AzStorageContainer -Context $context -Name *
       Write-Host "after get"
     azurePowerShellVersion: 'LatestVersion'
