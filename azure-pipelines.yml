@@ -9,152 +9,31 @@ trigger:
 pool: Default
 
 steps:
-# - task: AzureResourceManagerTemplateDeployment@3
-#   inputs:
-#     deploymentScope: 'Resource Group'
-#     azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-#     subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
-#     action: 'Create Or Update Resource Group'
-#     resourceGroupName: 'ja-arm-intro-task'
-#     location: 'West Europe'
-#     templateLocation: 'Linked artifact'
-#     csmFile: 'azureSATemplate.json'
-#     overrideParameters: '-startIndex 3'
-#     deploymentMode: 'Incremental'
-# - task: AzureResourceManagerTemplateDeployment@3
-#   inputs:
-#     deploymentScope: 'Resource Group'
-#     azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-#     subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
-#     action: 'Create Or Update Resource Group'
-#     resourceGroupName: 'ja-arm-intro-task'
-#     location: 'West Europe'
-#     templateLocation: 'Linked artifact'
-#     csmFile: 'azureVMTemplate.json'
-#     overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
-#     deploymentMode: 'Incremental'
-# - task: AzurePowerShell@5
-#   inputs:
-#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-#     ScriptType: 'InlineScript'
-#     Inline: |
-#       Get-AzContext
-#       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount3rg").Value[0]
-#       (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -AccountName "storageaccount4rg").Value[0]
-#       Get-AzVM -ResourceGroupName "ja-arm-intro-task" -Name "simple-vm"
-#     azurePowerShellVersion: 'LatestVersion'
-# - task: AzurePowerShell@5
-#   env:
-#     ADMINPASSWORD: $(adminPassword)
-#   inputs:
-#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-#     ScriptType: 'InlineScript'
-#     Inline: |
-#       $resourceGroupName = 'ja-arm-intro-task'
-#       $vmName = 'simple-vm'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+    subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'ja-arm-intro-task'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'azureSATemplate.json'
+    overrideParameters: '-startIndex 3'
+    deploymentMode: 'Incremental'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+    subscriptionId: '961ea96e-ac1e-49d0-baae-b5156658e8ae'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'ja-arm-intro-task'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'azureVMTemplate.json'
+    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
+    deploymentMode: 'Incremental'
 
-#       # Enable PowerShell Remoting
-#       $script = "Enable-PSRemoting -SkipNetworkProfileCheck -Force"
-#       Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId RunPowerShellScript -ScriptString "$script"
-
-#       # Copy Script to VM
-#       $localFilePath = 'testScript.ps1'
-#       $remoteFilePath = 'C:\testScriptOnVM.ps1'
-#       $vm = Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
-#       # Copy-AzVMFile -VM $vm -SourcePath $localFilePath -DestinationPath $remoteFilePath -FileMode Overwrite
-
-#       # Establish a remote session to the VM
-#       Write-Host "gabi shater 111111"
-#       # Get the public IP of the VM
-#       $publicIP = Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName -Name myPublicIP
-#       Write-Host "gabi shater after publicIP"
-#       # Create a remote PowerShell session
-#       # Credentials for the VM
-#       Write-Host "hiiiiiiiiiiiii ${env:ADMINPASSWORD}"
-#       $username = 'ja-azVM'
-#       $password = ConvertTo-SecureString ${env:ADMINPASSWORD} -AsPlainText -Force
-#       Write-Host "juna shatra after secure pass"
-#       $credential = New-Object System.Management.Automation.PSCredential($username, $password)
-#       Write-Host "juna shatra after cred"
-#       # Create PSSession
-#       $session = New-PSSession -ComputerName $publicIP -Credential $credential
-#       Write-Host "gabi shater after session"
-#       # Copy the file to the VM
-#       Copy-Item -Path $localFilePath -Destination $remoteFolderPath -ToSession $session
-#       Write-Host "gabi shater after copy-Item"
-#       # Close the remote session
-#       Remove-PSSession $session
-#       Write-Host "gabi shater after Remove-PSSession"
-#       Write-Host "gabi shater all the time"
-
-#       # Run Script on VM
-#       $remoteScriptPath = $remoteFilePath
-#       $scriptBlock = {
-#         param($scriptPath)
-#         Invoke-Expression -Command $scriptPath
-#       }
-#       Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -Name $vmName -CommandId 'RunPowerShellScript' -ScriptPath $remoteScriptPath -Parameter @{ scriptPath = $remoteScriptPath } -VM $vm
-#     azurePowerShellVersion: 'LatestVersion'
-#   displayName: 'Deploy VM, Copy Script, and Run'
-
-# - task: PowerShellOnTargetMachines@3
-#   inputs:
-#     Machines: '20.160.190.152'
-#     UserName: 'ja-azVM'
-#     UserPassword: '$(adminPassword)'
-#     InlineScript: 'Write-Output "Hello World"'
-#     CommunicationProtocol: 'Http'
-#     AuthenticationMechanism: Default
-#     NewPsSessionOptionArguments: '-SkipCACheck -SkipCNCheck'
-
-# - task: AzureFileCopy@5
-#   inputs:
-#     SourcePath: 'testScript.ps1'
-#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-#     Destination: 'AzureVMs'
-#     storage: 'bootdiagsltbv3ny6xzyh4'
-#     resourceGroup: 'JA-ARM-INTRO-TASK'
-#     vmsAdminUserName: 'ja-azVM'
-#     vmsAdminPassword: 'juna-azVM#!^@'
-#     TargetPath: 'C:\'
-#     enableCopyPrerequisites: true
-
-# - task: AzureCLI@2
-#   inputs:
-#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-#     scriptType: ps
-#     scriptLocation: 'inlineScript'
-#     inlineScript: |
-#       # Variables
-#       $vmPublicIpAddress = "20.160.190.152"
-#       $vmRdpUsername = "ja-azVM"
-#       $vmRdpPassword = "juna-azVM#!^@"
-
-#       # RDP connection parameters
-#       $rdpParams = @{
-#           ComputerName = $vmPublicIpAddress
-#           Credential = (Get-Credential -UserName $vmRdpUsername -Password $vmRdpPassword)
-#           Authentication = "CredSSP"
-#       }
-
-#       # Establish RDP connection
-#       $rdpSession = New-PSSession -ComputerName $vmPublicIpAddress -Credential $rdpParams.Credential -Authentication CredSSP
-#       Invoke-Command -Session $rdpSession -ScriptBlock {
-#           # Send "Hello, world!" command to the remote Windows VM
-#           Invoke-Expression "cmd.exe /C echo Hello, world!"
-#       }
-
-#       # Clean up RDP session
-#       Remove-PSSession $rdpSession
-
-# - task: AzurePowerShell@3
-#   inputs:
-#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-#     ScriptType: InlineScript
-#     Inline: |
-#         Start-AzVm -Name simple-vm -ResourceGroupName ja-arm-intro-task
-#         start-AzureRmVM -ResourceGroupName ja-arm-intro-task -Name simple-vm
-#     azurePowerShellVersion: LatestVersion
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
