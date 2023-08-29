@@ -21,6 +21,7 @@ steps:
     csmFile: 'azureSATemplate.json'
     overrideParameters: '-startIndex 3'
     deploymentMode: 'Incremental'
+  displayName: 'Storage accounts deployment'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -31,8 +32,9 @@ steps:
     location: 'West Europe'
     templateLocation: 'Linked artifact'
     csmFile: 'azureVMTemplate.json'
-    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
+    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword)'
     deploymentMode: 'Incremental'
+  displayName: 'Server (VM) deployment'
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
@@ -45,3 +47,4 @@ steps:
         -CommandId 'RunPowerShellScript' `
         -ScriptPath 'moveScript.ps1'
     azurePowerShellVersion: 'LatestVersion'
+  displayName: 'Invoking VM and run script on it'
