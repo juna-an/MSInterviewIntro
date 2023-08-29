@@ -33,41 +33,4 @@ steps:
     csmFile: 'azureVMTemplate.json'
     overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
     deploymentMode: 'Incremental'
-
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    ScriptType: 'InlineScript'
-    Inline: |
-      # Storage account details
-      $sourceStorageAccount = "storageaccount3rg"
-      $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
-      
-      $destinationStorageAccount = "storageaccount4rg"
-      $destinationStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
-      
-      # Creating containers ob both storage accounts
-      $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
-      $destContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageKey
-      $srcContainerName = "src-container-a"
-      $destContainerName = "dest-container-b"
-
-      # Check if the container exists in the source storage account
-      $containerExists = Get-AzStorageContainer -Name $srcContainerName -Context $context -ErrorAction SilentlyContinue
-      if (-not $containerExists) {
-          # Create the container if it doesn't exist
-          New-AzStorageContainer -Name $srcContainerName -Context $context
-          Write-Host "Container '$srcContainerName' created."
-      }
-
-      # Check if the container exists in the destination storage account
-      $destinationContainerExists = Get-AzStorageContainer -Name $destContainerName -Context $destContext -ErrorAction SilentlyContinue
-      if (-not $destinationContainerExists) {
-          # Create the container if it doesn't exist
-          New-AzStorageContainer -Name $destContainerName -Context $destContext
-          Write-Host "Container '$destContainerName' created."
-      }
-    azurePowerShellVersion: 'LatestVersion'
-  displayName: 'Creating cotainers in both storage accounts if does not exists'
-  
   
