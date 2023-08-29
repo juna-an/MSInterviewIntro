@@ -46,7 +46,7 @@ $filePath = "file.txt"
 ###########################################################################
 ######################## Creating $numOfBlobs blobs #######################
 # Local variables
-$numOfBlobs = 100
+$numOfBlobs = 3
 # Create $numOfBlobs blobs in source storage account
 Write-Host "**************************************************************"
 Write-Host "******************** Statr creating blobs ********************"
@@ -138,3 +138,9 @@ Write-Host "**************************************************************"
 
 # # Delete the now-empty container
 # Remove-AzStorageContainer -Name $srcContainerName -Context $srcContext -Force
+
+# # Delete blobs from destination storage account
+# for ($i = 1; $i -le $numOfBlobs; $i++) {
+#     $blobName = "blob$i.txt"
+#     Remove-AzStorageBlob -Context $destContext -Container $destContainerName -Blob $blobName
+# }
