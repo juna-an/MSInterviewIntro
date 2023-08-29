@@ -162,6 +162,9 @@ steps:
     Inline: |
       $sourceStorageAccount = "storageaccount3rg"
       $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
+      Write-Host "scource Storage Key: $sourceStorageKey"
       $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
+      Write-Host "context: $context"
       Get-AzStorageContainer -Context $context -Name *
+      Write-Host "after get"
     azurePowerShellVersion: 'LatestVersion'
