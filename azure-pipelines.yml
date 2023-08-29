@@ -171,8 +171,8 @@ steps:
       $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
       $destContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageKey
 
-      Remove-AzStorageContainer -Name sa-container-a -Context $context
-      Remove-AzStorageContainer -Name sa-container-b -Context $context
+      
+      Remove-AzStorageContainer -Name sa-container-b -Context $destContext
 
       Write-Host "after creating containers"
       Get-AzStorageContainer -Context $context -Name *
