@@ -182,7 +182,5 @@ steps:
       $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
       Write-Host "context: $context"
       Get-AzStorageContainer -Context $context -Name *
-      Remove-AzStorageContainer -Name sa-container-a -Context $context
-      Remove-AzStorageContainer -Name sa-container-b -Context $context
       Write-Host "after get"
     azurePowerShellVersion: 'LatestVersion'
