@@ -13,20 +13,20 @@ $srcContainerName = "src-container-a"
 $destContainerName = "dest-container-b"
 
 # Check if the container exists in the source storage account
-# $containerExists = Get-AzStorageContainer -Name $srcContainerName -Context $srcContext -ErrorAction SilentlyContinue
-# if (-not $containerExists) {
-#     # Create the container if it doesn't exist
+$containerExists = Get-AzStorageContainer -Name $srcContainerName -Context $srcContext -ErrorAction SilentlyContinue
+if (-not $containerExists) {
+    # Create the container if it doesn't exist
     New-AzStorageContainer -Name $srcContainerName -Context $srcContext
     Write-Host "Container '$srcContainerName' created."
-# }
+}
 
 # Check if the container exists in the destination storage account
-# $destinationContainerExists = Get-AzStorageContainer -Name $destContainerName -Context $destContext -ErrorAction SilentlyContinue
-# if (-not $destinationContainerExists) {
+$destinationContainerExists = Get-AzStorageContainer -Name $destContainerName -Context $destContext -ErrorAction SilentlyContinue
+if (-not $destinationContainerExists) {
     # Create the container if it doesn't exist
     New-AzStorageContainer -Name $destContainerName -Context $destContext
     Write-Host "Container '$destContainerName' created."
-# }
+}
 ################## End of Creating or updating containers #################
 ###########################################################################
 
