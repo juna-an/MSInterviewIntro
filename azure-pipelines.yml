@@ -163,33 +163,33 @@ steps:
       # Storage account details
       $sourceStorageAccount = "storageaccount3rg"
       $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
-      Write-Host "scource Storage Key: $sourceStorageKey"
+      
       $destinationStorageAccount = "storageaccount4rg"
       $destinationStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
-      Write-Host "destination Storage Key: $destinationStorageKey"
+      
       # Creating containers ob both storage accounts
       $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
       $destContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageKey
-      $sourceContainerName = "source-container-a"
-      $destinationContainerName = "distination-container-b"
+      $srcContainerName = "src-container-a"
+      $destContainerName = "dest-container-b"
 
       # Check if the container exists in the source storage account
-      $containerExists = Get-AzStorageContainer -Name $sourceContainerName -Context $context -ErrorAction SilentlyContinue
+      $containerExists = Get-AzStorageContainer -Name $srcContainerName -Context $context -ErrorAction SilentlyContinue
       if (-not $containerExists) {
           # Create the container if it doesn't exist
-          New-AzStorageContainer -Name $sourceContainerName -Context $context
-          Write-Host "Container '$sourceContainerName' created."
+          New-AzStorageContainer -Name $srcContainerName -Context $context
+          Write-Host "Container '$srcContainerName' created."
       }
 
       # Check if the container exists in the destination storage account
-      $destinationContainerExists = Get-AzStorageContainer -Name $destinationContainerName -Context $destContext -ErrorAction SilentlyContinue
+      $destinationContainerExists = Get-AzStorageContainer -Name $destContainerName -Context $destContext -ErrorAction SilentlyContinue
       if (-not $destinationContainerExists) {
           # Create the container if it doesn't exist
-          New-AzStorageContainer -Name $destinationContainerName -Context $destContext
-          Write-Host "Container '$destinationContainerName' created."
+          New-AzStorageContainer -Name $destContainerName -Context $destContext
+          Write-Host "Container '$destContainerName' created."
       }
-
-      Write-Host "after creating containers"
-      Get-AzStorageContainer -Context $context -Name *
-      Write-Host "after get"
     azurePowerShellVersion: 'LatestVersion'
+  displayName: 'Creating cotainers in both storage accounts if does not exists'
+
+  
+  
