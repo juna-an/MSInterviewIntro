@@ -174,7 +174,7 @@ steps:
       $destinationContainerName = "distination-container-b"
 
       # Check if the container exists in the source storage account
-      $containerExists = (Test-AzStorageContainer -Name $sourceContainerName -Context $context)
+      $containerExists = Get-AzStorageContainer -Name $sourceContainerName -Context $context -ErrorAction SilentlyContinue
       if (-not $containerExists) {
           # Create the container if it doesn't exist
           New-AzStorageContainer -Name $sourceContainerName -Context $context
@@ -182,7 +182,7 @@ steps:
       }
 
       # Check if the container exists in the destination storage account
-      $destinationContainerExists = (Test-AzStorageContainer -Name $destinationContainerName -Context $destContext)
+      $destinationContainerExists = Get-AzStorageContainer -Name $destinationContainerName -Context $destContext -ErrorAction SilentlyContinue
       if (-not $destinationContainerExists) {
           # Create the container if it doesn't exist
           New-AzStorageContainer -Name $destinationContainerName -Context $destContext
