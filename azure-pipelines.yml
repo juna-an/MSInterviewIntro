@@ -190,12 +190,5 @@ steps:
       }
     azurePowerShellVersion: 'LatestVersion'
   displayName: 'Creating cotainers in both storage accounts if does not exists'
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    ScriptType: 'FilePath'
-    ScriptPath: 'moveScript.ps1'
-    azurePowerShellVersion: 'LatestVersion'
-
   
   
