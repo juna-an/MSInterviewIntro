@@ -46,7 +46,7 @@ $filePath = "file.txt"
 ###########################################################################
 ######################## Creating $numOfBlobs blobs #######################
 # Local variables
-$numOfBlobs = 3
+$numOfBlobs = 5
 # Create $numOfBlobs blobs in source storage account
 Write-Host "**************************************************************"
 Write-Host "******************** Statr creating blobs ********************"
@@ -144,3 +144,7 @@ Write-Host "**************************************************************"
 #     $blobName = "blob$i.txt"
 #     Remove-AzStorageBlob -Context $destContext -Container $destContainerName -Blob $blobName
 # }
+
+
+
+"HELLO MY NAME IS STRING" | Out-File -FilePath "C:\Hi.txt"

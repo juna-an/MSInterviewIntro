@@ -1,4 +1,4 @@
-$rg = 'arm-introduction-task'
+$rg = 'ja-arm-intro-task'
 $adminUsername = 'ja-azVM' # You can customize this username
 $adminPassword = 'juna-azVM#!^@' #Read-Host -Prompt "Enter the administrator password" -AsSecureString
 $dnsLabelPrefix = 'mydns' # Customize the DNS label prefix
