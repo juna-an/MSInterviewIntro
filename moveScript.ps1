@@ -36,7 +36,7 @@ if (-not $destinationContainerExists) {
 # Create a dummy file and copy it to the disired number of blobs in storage account a
 # and then copying it to the storage account b
 # Specify the file path
-$filePath = "file.txt"
+$filePath = "file.txt" 
 # Write the string to the file
 "hello world! Do not worry be happy YOLO" | Out-File -FilePath $filePath
 ###################### End of Creating a dummy file #######################
