@@ -160,7 +160,8 @@ steps:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
     ScriptType: 'InlineScript'
     Inline: |
-      # You can write your azure powershell scripts inline here. 
-      # You can also pass predefined and custom variables to this script using arguments
+      $sourceStorageAccount = "storageaccount3rg"
+      $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
+      $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
       Get-AzStorageContainer -Context $context -Name *
     azurePowerShellVersion: 'LatestVersion'
