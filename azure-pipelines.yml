@@ -147,11 +147,20 @@ steps:
 #       # Clean up RDP session
 #       Remove-PSSession $rdpSession
 
-- task: AzurePowerShell@3
+# - task: AzurePowerShell@3
+#   inputs:
+#     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
+#     ScriptType: InlineScript
+#     Inline: |
+#         Start-AzVm -Name simple-vm -ResourceGroupName ja-arm-intro-task
+#         start-AzureRmVM -ResourceGroupName ja-arm-intro-task -Name simple-vm
+#     azurePowerShellVersion: LatestVersion
+- task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    ScriptType: InlineScript
+    ScriptType: 'InlineScript'
     Inline: |
-        Start-AzVm -Name simple-vm -ResourceGroupName ja-arm-intro-task
-        start-AzureRmVM -ResourceGroupName ja-arm-intro-task -Name simple-vm
-    azurePowerShellVersion: LatestVersion
+      # You can write your azure powershell scripts inline here. 
+      # You can also pass predefined and custom variables to this script using arguments
+      Get-AzStorageContainer -Context $context -Name *
+    azurePowerShellVersion: 'LatestVersion'
