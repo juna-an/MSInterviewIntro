@@ -163,22 +163,6 @@ steps:
       # Storage account details
       $sourceStorageAccount = "storageaccount3rg"
       $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
-      $destinationStorageAccount = "storageaccount4rg"
-      $destinationStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
-      # Creating containers ob both storage accounts
-      $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
-      $destContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageKey
-      New-AzStorageContainer -Name sa-container-a -Context $context
-      New-AzStorageContainer -Name sa-container-b -Context $destContext
-    azurePowerShellVersion: 'LatestVersion'
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    ScriptType: 'InlineScript'
-    Inline: |
-      # Storage account details
-      $sourceStorageAccount = "storageaccount3rg"
-      $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
       Write-Host "scource Storage Key: $sourceStorageKey"
       $destinationStorageAccount = "storageaccount4rg"
       $destinationStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
