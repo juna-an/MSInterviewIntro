@@ -170,8 +170,8 @@ steps:
       # Creating containers ob both storage accounts
       $context = New-AzStorageContext -StorageAccountName $sourceStorageAccount -StorageAccountKey $sourceStorageKey
       $destContext = New-AzStorageContext -StorageAccountName $destinationStorageAccount -StorageAccountKey $destinationStorageKey
-      $sourceContainerName = source-container-a
-      $destinationContainerName = distination-container-b
+      $sourceContainerName = "source-container-a"
+      $destinationContainerName = "distination-container-b"
 
       # Check if the container exists in the source storage account
       $containerExists = (Test-AzStorageContainer -Name $sourceContainerName -Context $context)
