@@ -1,4 +1,4 @@
-# input params which should be passed to the script when running it
+# Input params which should be passed to the script when running it
 param(
     $sourceStorageKey,
     $destStorageKey
@@ -12,7 +12,6 @@ param(
 if (-not (Get-Module -ListAvailable NuGet)) {
   Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 }
-
 if (-not (Get-Module -ListAvailable Az.Storage)) {
   Install-Module -Name Az.Storage -Force
 }
