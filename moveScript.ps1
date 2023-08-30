@@ -1,5 +1,4 @@
-# comment
-
+# input params which should be passed to the script when running it
 param(
     $sourceStorageKey,
     $destStorageKey
@@ -13,7 +12,6 @@ param(
 if (-not (Get-Module -ListAvailable Az.Storage)) {
   Install-Module -Name Az.Storage -Force
 }
-
 
 
 # Storage account details
