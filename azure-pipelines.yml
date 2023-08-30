@@ -32,7 +32,7 @@ steps:
     location: 'West Europe'
     templateLocation: 'Linked artifact'
     csmFile: 'azureVMTemplate.json'
-    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword) -securityType Standard -publicIPAllocationMethod Static'
+    overrideParameters: '-adminUsername ja-azVM -adminPassword $(adminPassword)'
     deploymentMode: 'Incremental'
   displayName: 'Server (VM) deployment'
 - task: AzurePowerShell@5
