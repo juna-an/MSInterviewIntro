@@ -48,9 +48,4 @@ steps:
         -ScriptPath 'moveScript.ps1'
     azurePowerShellVersion: 'LatestVersion'
   displayName: 'Invoking VM and run script on it'
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
-    ScriptType: 'FilePath'
-    ScriptPath: 'moveScript.ps1'
-    azurePowerShellVersion: 'LatestVersion'
+
