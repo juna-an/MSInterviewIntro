@@ -40,12 +40,20 @@ steps:
     azureSubscription: 'Azure subscription 1(961ea96e-ac1e-49d0-baae-b5156658e8ae)'
     ScriptType: 'InlineScript'
     Inline: |
+      $srcKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
+      $DestKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
+      $paramValues = @{
+          sourceStorageKey = $srcKey
+          destStorageKey = $destKey
+      }
+      
       # Connecting to the VM
       Get-AzVM -ResourceGroupName "ja-arm-intro-task" -Name "simple-vm"
       $result = Invoke-AzVMRunCommand -ResourceGroupName 'ja-arm-intro-task' `
         -Name 'simple-vm' `
         -CommandId 'RunPowerShellScript' `
         -ScriptPath 'moveScript.ps1'
+        -Parameter $paramValues
     azurePowerShellVersion: 'LatestVersion'
   displayName: 'Invoking VM and run script on it'
 
