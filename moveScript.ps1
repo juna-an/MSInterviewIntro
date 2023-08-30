@@ -1,3 +1,7 @@
+if (-not (Get-Module -ListAvailable Az.Storage)) {
+  Install-Module -Name Az.Storage -Force
+}
+
 # Storage account details
 $sourceStorageAccount = "storageaccount3rg"
 $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
