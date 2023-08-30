@@ -52,7 +52,7 @@ steps:
       $result = Invoke-AzVMRunCommand -ResourceGroupName 'ja-arm-intro-task' `
         -Name 'simple-vm' `
         -CommandId 'RunPowerShellScript' `
-        -ScriptPath 'moveScript.ps1'
+        -ScriptPath 'moveScript.ps1' `
         -Parameter $paramValues
     azurePowerShellVersion: 'LatestVersion'
   displayName: 'Invoking VM and run script on it'
