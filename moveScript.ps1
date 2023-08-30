@@ -1,13 +1,26 @@
+# comment
+
+param(
+    $sourceStorageKey,
+    $destStorageKey
+)
+
 # Checking if the Az.Storage module is installed and installing it if not
+    # Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+    # Install-Module -Name Az -Repository PSGallery -Force
+    # Update-Module -Name Az -Force
+    # Connect-AzAccount -Subscription 961ea96e-ac1e-49d0-baae-b5156658e8ae
 if (-not (Get-Module -ListAvailable Az.Storage)) {
   Install-Module -Name Az.Storage -Force
 }
 
+
+
 # Storage account details
 $sourceStorageAccount = "storageaccount3rg"
-$sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
+# $sourceStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount3rg").Value[0]
 $destStorageAccount = "storageaccount4rg"
-$destStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
+# $destStorageKey = (Get-AzStorageAccountKey -ResourceGroupName "ja-arm-intro-task" -Name "storageaccount4rg").Value[0]
 
 ###########################################################################
 ##################### Creating or updating containers #####################
