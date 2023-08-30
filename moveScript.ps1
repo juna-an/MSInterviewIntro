@@ -1,3 +1,4 @@
+# Checking if the Az.Storage module is installed and installing it if not
 if (-not (Get-Module -ListAvailable Az.Storage)) {
   Install-Module -Name Az.Storage -Force
 }
