@@ -9,6 +9,10 @@ param(
     # Install-Module -Name Az -Repository PSGallery -Force
     # Update-Module -Name Az -Force
     # Connect-AzAccount -Subscription 961ea96e-ac1e-49d0-baae-b5156658e8ae
+if (-not (Get-Module -ListAvailable NuGet)) {
+  Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+}
+
 if (-not (Get-Module -ListAvailable Az.Storage)) {
   Install-Module -Name Az.Storage -Force
 }
