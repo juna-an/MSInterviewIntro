@@ -4,7 +4,7 @@ param(
     $destStorageKey
 )
 
-# Checking if the Az.Storage module is installed and installing it if not
+# Checking if necisary modules are installed on the VM and installing them if not
     # Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
     # Install-Module -Name Az -Repository PSGallery -Force
     # Update-Module -Name Az -Force
@@ -66,7 +66,7 @@ $filePath = "file.txt"
 ###########################################################################
 ######################## Creating $numOfBlobs blobs #######################
 # Local variables
-$numOfBlobs = 5
+$numOfBlobs = 100
 # Create $numOfBlobs blobs in source storage account
 Write-Host "**************************************************************"
 Write-Host "******************** Statr creating blobs ********************"
