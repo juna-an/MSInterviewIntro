@@ -145,6 +145,5 @@ Write-Host "**************************************************************"
 #     Remove-AzStorageBlob -Context $destContext -Container $destContainerName -Blob $blobName
 # }
 
-
-
-"HELLO MY NAME IS STRING" | Out-File -FilePath "C:\Hi.txt"
+# # checking if the vm runs the script above by trying to creat a dummy file on it
+# "HELLO MY NAME IS STRING" | Out-File -FilePath "C:\Hi.txt"
