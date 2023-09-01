@@ -74,12 +74,6 @@ for ($i = 1; $i -le $numOfBlobs; $i++) {
     $blobName = "blob$i.txt"
     Write-Host -NoNewline "$blobName, "
     
-    # # the following command can be deleted it just helped with debugging
-    # $sourceBlob = Get-AzStorageBlob -Context $srcContext `
-    #     -Container $srcContainerName `
-    #     -Blob $blobName `
-    #     -ErrorAction SilentlyContinue
-
     # BlobType: Azure Storage supports different blobs types: Block blobs, Page blobs, and Append blobs
     # Block blobs: Are optimized for storing large amounts of unstructured data: documents\images\videos\backups
     $setBlobCommand = Set-AzStorageBlobContent -Container $srcContainerName `
