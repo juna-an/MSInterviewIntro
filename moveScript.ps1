@@ -55,7 +55,7 @@ if (-not $destinationContainerExists) {
 # Create a dummy file and copy it to the desired number of blobs in storage account a
 # and then copying it to the storage account b
 # Specify the file path
-$filePath = "file.txt" 
+$filePath = "file.txt"
 # Write the string to the file
 "hello world! Do not worry be happy YOLO" | Out-File -FilePath $filePath
 ###################### End of Creating a dummy file #######################
@@ -78,6 +78,8 @@ for ($i = 1; $i -le $numOfBlobs; $i++) {
         -Blob $blobName `
         -ErrorAction SilentlyContinue
 
+    # BlobType: Azure Storage supports different blobs types: Block blobs, Page blobs, and Append blobs
+    # Block blobs: Are optimized for storing large amounts of unstructured data: documents\images\videos\backups
     $setBlobCommand = Set-AzStorageBlobContent -Container $srcContainerName `
         -Blob $blobName `
         -BlobType Block `
