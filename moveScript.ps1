@@ -73,6 +73,8 @@ Write-Host -NoNewline "Creating blob: "
 for ($i = 1; $i -le $numOfBlobs; $i++) {
     $blobName = "blob$i.txt"
     Write-Host -NoNewline "$blobName, "
+    
+    # # the following command can be deleted it just helped with debugging
     # $sourceBlob = Get-AzStorageBlob -Context $srcContext `
     #     -Container $srcContainerName `
     #     -Blob $blobName `
