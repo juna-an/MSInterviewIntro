@@ -100,7 +100,6 @@ Write-Host -NoNewline "Copying blobs: "
 for ($i = 1; $i -le $numOfBlobs; $i++) {
     $blobName = "blob$i.txt"
     Write-Host -NoNewline "$blobName, "
-    $sourceUri = "https://$sourceStorageAccount.blob.core.windows.net/$srcContainerName/$blobName"
     $sourceBlob = Get-AzStorageBlob -Context $srcContext `
         -Container $srcContainerName `
         -Blob $blobName
